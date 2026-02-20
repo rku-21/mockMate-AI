@@ -34,4 +34,5 @@ const interviewSchema=new mongoose.Schema({
     timestamps:true
 
 });
-module.exports=mongoose.model("interview",interviewSchema);
+const Interview=mongoose.model("Interview",interviewSchema);
+export default Interview;
