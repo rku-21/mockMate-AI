@@ -32,14 +32,15 @@ export const login=async(req,res)=>{
     }
 
     const token=generateToken(user.id,res);
-    return res.status(200).json({
-        message:"Login successfully",
-        _id:user._id,
-        email:user.email,
-        username:user.username,
-        token:token,
-
-    })
+        return res.status(200).json({
+        message: "Login successfully",
+        user: {
+            _id: user._id,
+            email: user.email,
+            username: user.username,
+            profilePicture: user.profilePicture || "",
+        }
+        });
 }
 export const signup=async(req,res)=>{
     const {username,email,password,profilePicture}=req.body;
@@ -97,7 +98,7 @@ export const signup=async(req,res)=>{
     }
 
 }
-export const getme=async(req,res)=>{
+export const checkAuth=async(req,res)=>{
     try{
         return res.status(200).json({
             message:"auth works",
@@ -108,5 +109,14 @@ export const getme=async(req,res)=>{
         return res.status(500).json({
             message:"Internal server error"
         });
+    }
+}
+export const logout=(req,res)=>{
+    try {
+        res.cookie("jwt","",{maxAge:0});
+       return res.status(200).json({message:"logout successfully"});
+    }
+    catch(error){
+        return res.status(500).json({message:"Internal server Error"});
     }
 }

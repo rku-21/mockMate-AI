@@ -8,6 +8,9 @@ import { connectDB } from "./lib/db.js";
 dotenv.config();
 console.log("MONGODB_URI:", process.env.MONGODB_URI);
 const app=express();
+app.use(express.json());
+
+app.use(cookieParser());
 
 const PORT=process.env.PORT || 5000;
 app.use(cors({
@@ -17,7 +20,6 @@ app.use(cors({
 
 app.use("/api/auth",authRoutes);
 
-app.use(cookieParser());
 
 app.get("/",(req,res)=>{
     res.send("MockMate AI is running ");
