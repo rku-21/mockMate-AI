@@ -79,14 +79,16 @@ export const signup=async(req,res)=>{
         });
 
         await newUser.save();
-        const token=generateToken(newUser._id,res);
+        generateToken(newUser._id,res);
 
         return res.status(200).json({
             message:"signup successfully",
-            _id:newUser._id,
-            email:newUser.email,
-            username:newUser.username,
-            token:token,
+            user:{
+                _id:newUser._id,
+                email:newUser.email,
+                username:newUser.username,
+                profilePicture:newUser.profilePicture || "",
+            }
         })
 
 

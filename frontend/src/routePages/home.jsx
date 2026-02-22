@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore.js";
 import { useState } from "react"; 
-import { encoded } from "../staticData/homeData.js";
+import { encodedHome } from "../staticData/homeData.js";
+import InterviewSetup from "../components/interviewSetup.jsx";
 const stats = [
   { value: "50K+", label: "Interviews Conducted" },
   { value: "94%", label: "User Satisfaction" },
@@ -10,9 +11,10 @@ const stats = [
 ];
 
 export default function Home() {
-    const {features,steps}=JSON.parse(decodeURIComponent(escape(atob(encoded))));
+    const {features,steps}=JSON.parse(decodeURIComponent(escape(atob(encodedHome))));
     const {authUser,logout}=useAuthStore();
     const [open,setopen]=useState(false);
+    const [ShowSetup,setShowSetup]=useState(false);
     const handleLogout=()=>{
         logout();
 
@@ -25,9 +27,11 @@ export default function Home() {
       />
 
       <div
+          
         className="min-h-screen relative"
         style={{ background: "var(--bg)", color: "var(--text)", fontFamily: "'DM Sans', sans-serif" }}
       >
+        {ShowSetup && <InterviewSetup onClose={() => setShowSetup(false)}/>}
       
         <div
           className="fixed inset-0 pointer-events-none z-0"
@@ -181,8 +185,9 @@ export default function Home() {
          
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-16">
             {authUser ? (
-              <Link
-                to="/interview"
+              // logged in user
+              <button
+                onClick={() => setShowSetup(true)}
                 className="px-8 py-4 rounded-xl font-bold text-base transition-all hover:-translate-y-1"
                 style={{
                   fontFamily: "'Syne', sans-serif",
@@ -192,7 +197,7 @@ export default function Home() {
                 }}
               >
                 Start Mock Interview →
-              </Link>
+              </button>
             ) : (
               <Link
                 to="/signup"
