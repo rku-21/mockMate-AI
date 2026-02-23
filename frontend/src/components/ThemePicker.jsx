@@ -55,7 +55,7 @@ export const ThemePicker=()=>{
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2
-                  className="text-xl font-extrabold tracking-tight"
+                  className="text-2xl font-extrabold tracking-tight"
                   style={{ color: "var(--text)", fontFamily: "'Syne', sans-serif" }}
                 >
                   Choose Theme
