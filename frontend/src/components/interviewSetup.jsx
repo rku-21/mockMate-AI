@@ -17,7 +17,13 @@ const icons = {
   data:      <FaRobot />,
 };
 
-const data = JSON.parse(decodeURIComponent(atob(encodedInterviewSetup)));
+const decodeBase64Utf8 = (value) => {
+  const binary = atob(value);
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return new TextDecoder("utf-8").decode(bytes);
+};
+
+const data = JSON.parse(decodeBase64Utf8(encodedInterviewSetup));
 const roles = data.roles.map(r => ({ ...r, icon: icons[r.id] }));
 const levels = data.levels;
 const types = data.types;
