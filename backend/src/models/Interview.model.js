@@ -94,7 +94,7 @@ const interviewSchema=new mongoose.Schema({
 
     startTime:{
         type:Date,
-        default:Data.now(),
+        default:Date.now(),
     },
     endTime:{
         type:Date,
